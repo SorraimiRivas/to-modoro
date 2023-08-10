@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import HomeScreen from "./screen/home/HomeScreen";
+import HomeScreen from "./screen/timer/TimerScreen";
+import TimerSettingsScreen from "./screen/timer/TimerSettingsScreen";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <HomeScreen />
+      {/* <HomeScreen /> */}
+      <TimerSettingsScreen />
       <StatusBar style="auto" />
     </View>
   );
@@ -14,7 +16,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#20B2AA",
     alignItems: "center",
     justifyContent: "center",
   },

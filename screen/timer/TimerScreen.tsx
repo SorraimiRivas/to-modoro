@@ -1,12 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
 import TimerDisplay from "../../components/TimerDisplay";
+import TimerModeText from "../../components/TimerModeText";
 
 export type TimerMode = "Focus" | "Break";
 
-const FOCUS_TIME = 0.2 * 60 * 1000;
-const BREAK_TIME = 0.1 * 60 * 1000;
+const FOCUS_TIME = 25 * 60 * 1000;
+const BREAK_TIME = 5 * 60 * 1000;
 
 const HomeScreen = () => {
   const [timer, setTimer] = useState<number>(FOCUS_TIME);
@@ -33,6 +34,7 @@ const HomeScreen = () => {
       if (timerMode == "Focus") {
         setTimerMode("Break");
         setTimer(BREAK_TIME);
+      } else {
         setTimerMode("Focus");
         setTimer(FOCUS_TIME);
       }
@@ -41,7 +43,8 @@ const HomeScreen = () => {
   }, [timer]);
 
   return (
-    <View>
+    <View style={styles.container}>
+      <TimerModeText timerMode={timerMode} />
       <TimerDisplay time={new Date(timer)} />
       <PlayPauseButton
         onPress={isTimeRunning ? clearTimer : startTimer}
@@ -50,5 +53,12 @@ const HomeScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default HomeScreen;

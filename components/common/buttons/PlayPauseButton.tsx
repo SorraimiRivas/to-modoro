@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import React, { FC } from "react";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -9,13 +9,20 @@ type Props = {
 
 const PlayPauseButton: FC<Props> = ({ onPress, isTimeRunning }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <AntDesign
         name={isTimeRunning ? "pausecircleo" : "playcircleo"}
         size={120}
+        color="white"
       />
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30,
+  },
+});
 
 export default PlayPauseButton;
