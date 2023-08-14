@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { FC } from "react";
-import { TimerMode } from "../screen/timer/TimerScreen";
+import { TimerMode } from "../screens/timer/TimerScreen";
 
 type Props = {
   timerMode: TimerMode;

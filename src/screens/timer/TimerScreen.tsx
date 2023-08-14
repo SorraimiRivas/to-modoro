@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
-import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
-import TimerDisplay from "../../components/TimerDisplay";
 import TimerModeText from "../../components/TimerModeText";
+import TimerDisplay from "../../components/TimerDisplay";
+import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
 
 export type TimerMode = "Focus" | "Break";
 
