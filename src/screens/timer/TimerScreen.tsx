@@ -3,17 +3,20 @@ import React, { useEffect, useState } from "react";
 import TimerModeText from "../../components/TimerModeText";
 import TimerDisplay from "../../components/TimerDisplay";
 import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
+import useSetTime from "../../hooks/useSetTime";
 
 export type TimerMode = "Focus" | "Break";
 
-const FOCUS_TIME = 25 * 60 * 1000;
-const BREAK_TIME = 5 * 60 * 1000;
+const FOCUS_TIME = 60 * 1000;
+const BREAK_TIME = 60 * 1000;
 
 const HomeScreen = () => {
-  const [timer, setTimer] = useState<number>(FOCUS_TIME);
+  const [timer, setTimer] = useState<number>(25 * FOCUS_TIME);
   const [isTimeRunning, setIsTimeRunning] = useState<boolean>(false);
   const [timerMode, setTimerMode] = useState<TimerMode>("Focus");
   const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
+
+  const { focusTime, breakTime } = useSetTime();
 
   const startTimer = () => {
     setIsTimeRunning(!isTimeRunning);
@@ -33,10 +36,10 @@ const HomeScreen = () => {
     if (timer === 0) {
       if (timerMode == "Focus") {
         setTimerMode("Break");
-        setTimer(BREAK_TIME);
+        setTimer(breakTime * BREAK_TIME);
       } else {
         setTimerMode("Focus");
-        setTimer(FOCUS_TIME);
+        setTimer(focusTime * FOCUS_TIME);
       }
       clearTimer();
     }

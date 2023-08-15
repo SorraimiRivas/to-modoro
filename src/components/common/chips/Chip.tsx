@@ -8,15 +8,16 @@ type Props = {
 };
 
 const Chip: FC<Props> = ({ label, onPress, isActive }) => {
+  const bgColor = isActive ? `bg-blue-400` : `bg-[#F0F0F0]`;
+  const textColor = isActive ? `text-white` : "text-[#333333]";
+  const borderColor = isActive ? `border-black` : "bg-[#BBBBBB]";
+
   return (
     <Pressable onPress={onPress}>
       <View
-        className="rounded-xl px-2 py-1 m-1 "
-        style={
-          isActive ? { backgroundColor: "blue" } : { backgroundColor: "gray" }
-        }
+        className={`${bgColor} ${borderColor} border rounded-full px-2 py-1 m-1 `}
       >
-        <Text className="text-white">{label}</Text>
+        <Text className={`${textColor} text-xl`}>{label}</Text>
       </View>
     </Pressable>
   );
