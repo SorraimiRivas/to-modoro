@@ -24,7 +24,7 @@ const RadioButton: FC<Props> = ({
     : "text-gray-400";
 
   return (
-    <View className="flex-row gap-1">
+    <View className="flex-row gap-1 my-0">
       <View>
         <TouchableOpacity
           activeOpacity={disabled ? 1 : 0.5}
@@ -34,20 +34,20 @@ const RadioButton: FC<Props> = ({
             <FontAwesome5
               name="dot-circle"
               size={24}
-              color={disabled ? "grey" : "blue"}
+              color={disabled ? "grey" : "#00CCFF"}
             />
           )}
           {status == "unchecked" && (
             <FontAwesome5
               name="circle"
               size={24}
-              color={disabled ? "grey" : "blue"}
+              color={disabled ? "grey" : "#00CCFF"}
             />
           )}
         </TouchableOpacity>
       </View>
       <View className="justify-center">
-        <Text className={`${labelColor}`}>{label}</Text>
+        <Text className={`${labelColor} font-Merriweather`}>{label}</Text>
       </View>
     </View>
   );

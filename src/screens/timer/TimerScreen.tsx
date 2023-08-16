@@ -4,17 +4,19 @@ import TimerModeText from "../../components/TimerModeText";
 import TimerDisplay from "../../components/TimerDisplay";
 import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
 import useSetTime from "../../hooks/useSetTime";
+import TimerSettingsScreen from "./TimerSettingsScreen";
 
 export type TimerMode = "Focus" | "Break";
 
 const FOCUS_TIME = 60 * 1000;
 const BREAK_TIME = 60 * 1000;
 
-const HomeScreen = () => {
+const TimerScreen = () => {
   const [timer, setTimer] = useState<number>(25 * FOCUS_TIME);
   const [isTimeRunning, setIsTimeRunning] = useState<boolean>(false);
   const [timerMode, setTimerMode] = useState<TimerMode>("Focus");
   const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
+  const [showSettings, setShowSettings] = useState<boolean>(false);
 
   const { focusTime, breakTime } = useSetTime();
 
@@ -46,7 +48,7 @@ const HomeScreen = () => {
   }, [timer]);
 
   return (
-    <View style={styles.container}>
+    <View className="align-middle justify-center">
       <TimerModeText timerMode={timerMode} />
       <TimerDisplay time={new Date(timer)} />
       <PlayPauseButton
@@ -57,11 +59,4 @@ const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-
-export default HomeScreen;
+export default TimerScreen;
