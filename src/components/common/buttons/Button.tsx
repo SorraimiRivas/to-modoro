@@ -8,7 +8,7 @@ type Props = {
 
 const Button: FC<Props> = ({ label, onPress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Text>{label}</Text>
     </TouchableOpacity>
   );

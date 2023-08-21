@@ -1,52 +1,25 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import Chip from "../../components/common/chips/Chip";
-import useSetTime from "../../hooks/useSetTime";
 import RadioButton from "../../components/common/buttons/RadioButton";
 import { Slider } from "@react-native-assets/slider";
 import Button from "../../components/common/buttons/Button";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParams } from "../../navigation/Stack";
+import { useGlobalContext } from "../../context/GlobalContext";
 
 type Status = "1" | "2" | "3" | "4" | "5" | "6";
 type Mode = "Classic" | "Custom";
+export type Props = {
+  navigation: StackNavigationProp<RootStackParams>;
+};
 
-const TimerSettingsScreen = () => {
+const TimerSettingsScreen: FC<Props> = ({ navigation }) => {
   const [selectedMode, setSelectedMode] = React.useState<Mode>("Classic");
   const [checkedFocus, setCheckedFocus] = React.useState<Status>("1");
   const [checkedBreak, setCheckedBreak] = React.useState<Status>("4");
-
-  const { focusTime, breakTime, setFocusTime, setBreakTime } = useSetTime();
-
-  useEffect(() => {
-    switch (checkedFocus) {
-      case "1":
-        setFocusTime(25);
-        break;
-      case "2":
-        setFocusTime(30);
-        break;
-      case "3":
-        setFocusTime(90);
-        break;
-      default:
-        break;
-    }
-  }, [checkedFocus, selectedMode]);
-
-  useEffect(() => {
-    switch (checkedBreak) {
-      case "4":
-        setBreakTime(5);
-        break;
-      case "5":
-        setBreakTime(10);
-        break;
-      case "6":
-        setBreakTime(15);
-        break;
-      default:
-        break;
-    }
-  }, [checkedBreak, selectedMode]);
+  const { focusTime, breakTime, setFocusTime, setBreakTime } =
+    useGlobalContext();
 
   return (
     <View className="mx-10">
@@ -68,7 +41,7 @@ const TimerSettingsScreen = () => {
           <Text
             className={`${
               selectedMode == "Classic" ? "text-black" : "text-gray-400"
-            } font-Merriweather mb-1`}
+            } mb-1`}
           >
             Focus Time
           </Text>
@@ -76,26 +49,35 @@ const TimerSettingsScreen = () => {
             disabled={selectedMode == "Custom" ? true : false}
             label="25:00 Minutes"
             status={checkedFocus == "1" ? "checked" : "unchecked"}
-            onPress={() => setCheckedFocus("1")}
+            onPress={() => {
+              setCheckedFocus("1");
+              setFocusTime(25);
+            }}
           />
           <RadioButton
             disabled={selectedMode == "Custom" ? true : false}
             label="30:00 Minutes"
             status={checkedFocus == "2" ? "checked" : "unchecked"}
-            onPress={() => setCheckedFocus("2")}
+            onPress={() => {
+              setCheckedFocus("2");
+              setFocusTime(30);
+            }}
           />
           <RadioButton
             disabled={selectedMode == "Custom" ? true : false}
             label="90:00 Minutes"
             status={checkedFocus == "3" ? "checked" : "unchecked"}
-            onPress={() => setCheckedFocus("3")}
+            onPress={() => {
+              setCheckedFocus("3");
+              setFocusTime(90);
+            }}
           />
         </View>
         <View className="">
           <Text
             className={`${
               selectedMode == "Classic" ? "text-black" : "text-gray-400"
-            } font-Merriweather mb-1`}
+            } mb-1`}
           >
             Break Time
           </Text>
@@ -103,19 +85,28 @@ const TimerSettingsScreen = () => {
             disabled={selectedMode == "Custom" ? true : false}
             label="05:00 Minutes"
             status={checkedBreak == "4" ? "checked" : "unchecked"}
-            onPress={() => setCheckedBreak("4")}
+            onPress={() => {
+              setCheckedBreak("4");
+              setBreakTime(5);
+            }}
           />
           <RadioButton
             disabled={selectedMode == "Custom" ? true : false}
             label="10:00 Minutes"
             status={checkedBreak == "5" ? "checked" : "unchecked"}
-            onPress={() => setCheckedBreak("5")}
+            onPress={() => {
+              setCheckedBreak("5");
+              setBreakTime(10);
+            }}
           />
           <RadioButton
             disabled={selectedMode == "Custom" ? true : false}
             label="15:00 Minutes"
             status={checkedBreak == "6" ? "checked" : "unchecked"}
-            onPress={() => setCheckedBreak("6")}
+            onPress={() => {
+              setCheckedBreak("6");
+              setBreakTime(15);
+            }}
           />
         </View>
       </View>
@@ -124,7 +115,7 @@ const TimerSettingsScreen = () => {
           <Text
             className={`${
               selectedMode == "Custom" ? "text-black" : "text-gray-400"
-            } font-Merriweather text-base `}
+            } text-base `}
           >{`Focus Time: ${
             selectedMode == "Custom" ? focusTime : 25
           } Minutes`}</Text>
@@ -151,7 +142,7 @@ const TimerSettingsScreen = () => {
           <Text
             className={`${
               selectedMode == "Custom" ? "text-black" : "text-gray-400"
-            } font-Merriweather text-base`}
+            } text-base`}
           >{`Break Time: ${
             selectedMode == "Custom" ? breakTime : 5
           } Minutes`}</Text>
@@ -176,7 +167,7 @@ const TimerSettingsScreen = () => {
           />
         </View>
       </View>
-      <Button label="Back" onPress={() => ""} />
+      <Button label="Go Back" onPress={() => navigation.navigate("Timer")} />
     </View>
   );
 };
