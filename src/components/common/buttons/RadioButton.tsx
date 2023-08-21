@@ -47,7 +47,7 @@ const RadioButton: FC<Props> = ({
         </TouchableOpacity>
       </View>
       <View className="justify-center">
-        <Text className={`${labelColor} font-Merriweather`}>{label}</Text>
+        <Text className={`${labelColor}`}>{label}</Text>
       </View>
     </View>
   );

@@ -13,7 +13,7 @@ const PlayPauseButton: FC<Props> = ({ onPress, isTimeRunning }) => {
       <AntDesign
         name={isTimeRunning ? "pausecircleo" : "playcircleo"}
         size={120}
-        color="white"
+        color="black"
       />
     </TouchableOpacity>
   );

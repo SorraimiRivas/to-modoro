@@ -8,21 +8,12 @@ type Props = {
 
 const TimerModeText: FC<Props> = ({ timerMode }) => {
   const message =
-    timerMode == "Focus" ? "Its time to Focus" : "Its time to take break";
+    timerMode == "Focus" ? "It's time to Focus" : "It's time to take break";
   return (
     <View>
-      <Text style={styles.text}>{message}</Text>
+      <Text className="text-black text-2xl font-semibold ">{message}</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    color: "#FFFF",
-    fontSize: 24,
-    fontWeight: "800",
-    margin: 20,
-  },
-});
 
 export default TimerModeText;
