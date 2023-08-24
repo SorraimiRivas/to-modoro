@@ -8,8 +8,11 @@ type Props = {
 
 const Button: FC<Props> = ({ label, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>{label}</Text>
+    <TouchableOpacity
+      className="w-28 bg-cyan-500 rounded-md p-2 justify-center items-center"
+      onPress={onPress}
+    >
+      <Text className="text-lg">{label}</Text>
     </TouchableOpacity>
   );
 };

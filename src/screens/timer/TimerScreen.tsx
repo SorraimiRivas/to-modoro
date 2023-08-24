@@ -1,13 +1,12 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import TimerModeText from "../../components/TimerModeText";
 import TimerDisplay from "../../components/TimerDisplay";
 import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
-import Button from "../../components/common/buttons/Button";
-import { useNavigation } from "@react-navigation/native";
 import { RootStackParams } from "../../navigation/Stack";
 import { useGlobalContext } from "../../context/GlobalContext";
 import { StackNavigationProp } from "@react-navigation/stack";
+import Settings from "../../components/common/buttons/SettingsButton";
 
 export type TimerMode = "Focus" | "Break";
 
@@ -66,11 +65,6 @@ const TimerScreen: FC<Props> = ({ navigation }) => {
           isTimeRunning={isTimeRunning}
         />
       </View>
-
-      <Button
-        label="Settings"
-        onPress={() => navigation.navigate("Settings")}
-      />
     </View>
   );
 };
