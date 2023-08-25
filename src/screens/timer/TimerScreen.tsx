@@ -1,11 +1,13 @@
 import { View } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import TimerModeText from "../../components/TimerModeText";
-import TimerDisplay from "../../components/TimerDisplay";
 import PlayPauseButton from "../../components/common/buttons/PlayPauseButton";
 import { RootStackParams } from "../../navigation/Stack";
 import { useGlobalContext } from "../../context/GlobalContext";
 import { StackNavigationProp } from "@react-navigation/stack";
+import ResetTimerButton from "../../components/common/buttons/ResetTimerButton";
+import TimerDisplay from "../../components/TimerDisplay";
+import AnimatedProgress from "../../components/AnimatedProgress";
 
 export type TimerMode = "Focus" | "Break";
 
@@ -16,7 +18,7 @@ export type Props = {
 const FOCUS_TIME = 60;
 const BREAK_TIME = 60;
 
-const TimerScreen: FC<Props> = ({ navigation }) => {
+const TimerScreen: FC = () => {
   const { focusTime, breakTime } = useGlobalContext();
   const [timer, setTimer] = useState<number>(focusTime * FOCUS_TIME);
   const [isTimeRunning, setIsTimeRunning] = useState<boolean>(false);
@@ -29,8 +31,15 @@ const TimerScreen: FC<Props> = ({ navigation }) => {
     setIntervalId(id);
   };
 
+  const handleResetTimer = () => {
+    setTimer(FOCUS_TIME * focusTime);
+    setTimerMode("Focus");
+    setIsTimeRunning(false);
+    clearTimer();
+  };
+
   const clearTimer = () => {
-    setIsTimeRunning(!isTimeRunning);
+    setIsTimeRunning(false);
     if (intervalId) {
       clearInterval(intervalId);
     }
@@ -56,6 +65,10 @@ const TimerScreen: FC<Props> = ({ navigation }) => {
         <TimerModeText timerMode={timerMode} />
       </View>
       <View>
+        <AnimatedProgress
+          timer={timer}
+          value={timerMode == "Focus" ? focusTime * 60 : breakTime * 60}
+        />
         <TimerDisplay time={timer} />
       </View>
       <View>
@@ -63,6 +76,7 @@ const TimerScreen: FC<Props> = ({ navigation }) => {
           onPress={isTimeRunning ? clearTimer : startTimer}
           isTimeRunning={isTimeRunning}
         />
+        <ResetTimerButton onPress={handleResetTimer} />
       </View>
     </View>
   );
