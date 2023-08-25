@@ -1,13 +1,9 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { FC, useEffect, useState } from "react";
-import Chip from "../../components/common/chips/Chip";
-import RadioButton from "../../components/common/buttons/RadioButton";
-import { Slider } from "@react-native-assets/slider";
-import Button from "../../components/common/buttons/Button";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParams } from "../../navigation/Stack";
 import { useGlobalContext } from "../../context/GlobalContext";
-import RoulettePicker from "../../components/RoulettePicker";
+import CustomPicker from "../../components/CustomPicker";
 
 type Status = "1" | "2" | "3" | "4" | "5" | "6";
 type Mode = "Classic" | "Custom";
@@ -184,7 +180,7 @@ const TimerSettingsScreen: FC = () => {
           />
         </View>
       </View> */}
-      <RoulettePicker
+      <CustomPicker
         value={focusTime}
         title="Focus"
         isOpen={isActive == "Focus" ? true : false}
@@ -194,7 +190,7 @@ const TimerSettingsScreen: FC = () => {
             : () => handleOpenDropDown("Focus")
         }
       />
-      <RoulettePicker
+      <CustomPicker
         value={breakTime}
         title="Break"
         isOpen={isActive == "Break" ? true : false}
@@ -204,7 +200,7 @@ const TimerSettingsScreen: FC = () => {
             : () => handleOpenDropDown("Break")
         }
       />
-      <RoulettePicker
+      <CustomPicker
         value={longBreak}
         title="Long Break"
         isOpen={isActive == "Long Break" ? true : false}
