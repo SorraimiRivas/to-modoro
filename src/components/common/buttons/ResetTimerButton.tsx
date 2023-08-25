@@ -9,7 +9,7 @@ type Props = {
 const ResetTimerButton: FC<Props> = ({ onPress }) => {
   return (
     <Pressable onPress={onPress}>
-      <Ionicons name="refresh" size={24} color="black" />
+      <Ionicons name="refresh-circle" size={24} color="#00e0ff" />
     </Pressable>
   );
 };

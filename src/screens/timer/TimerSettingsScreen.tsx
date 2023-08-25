@@ -1,5 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Chip from "../../components/common/chips/Chip";
 import RadioButton from "../../components/common/buttons/RadioButton";
 import { Slider } from "@react-native-assets/slider";
@@ -7,24 +7,41 @@ import Button from "../../components/common/buttons/Button";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParams } from "../../navigation/Stack";
 import { useGlobalContext } from "../../context/GlobalContext";
+import RoulettePicker from "../../components/RoulettePicker";
 
 type Status = "1" | "2" | "3" | "4" | "5" | "6";
 type Mode = "Classic" | "Custom";
+type IsActive = "Focus" | "Break" | "Long Break" | null;
 export type Props = {
   navigation: StackNavigationProp<RootStackParams>;
 };
 
-const TimerSettingsScreen: FC<Props> = ({ navigation }) => {
-  const [selectedMode, setSelectedMode] = React.useState<Mode>("Classic");
-  const [checkedFocus, setCheckedFocus] = React.useState<Status>("1");
-  const [checkedBreak, setCheckedBreak] = React.useState<Status>("4");
-  const { focusTime, breakTime, setFocusTime, setBreakTime } =
-    useGlobalContext();
+const TimerSettingsScreen: FC = () => {
+  const [selectedMode, setSelectedMode] = useState<Mode>("Classic");
+  const [checkedFocus, setCheckedFocus] = useState<Status>("1");
+  const [checkedBreak, setCheckedBreak] = useState<Status>("4");
+  const [isActive, setIsActive] = useState<IsActive>(null);
+
+  const {
+    focusTime,
+    breakTime,
+    longBreak,
+    setLongBreak,
+    setFocusTime,
+    setBreakTime,
+  } = useGlobalContext();
+
+  const handleOpenDropDown = (name: IsActive) => {
+    setIsActive(name);
+  };
+
+  const handleCloseDropDown = () => {
+    setIsActive(null);
+  };
 
   return (
-    <View className="mx-10">
-      <Text className="text-black text-xl my-12 font-semibold">Settings</Text>
-      <View className="flex-row justify-around">
+    <View className="flex-1 items-center">
+      {/* <View className="flex-row justify-around">
         <Chip
           label="Classic"
           onPress={() => setSelectedMode("Classic")}
@@ -35,8 +52,8 @@ const TimerSettingsScreen: FC<Props> = ({ navigation }) => {
           onPress={() => setSelectedMode("Custom")}
           isActive={selectedMode == "Custom" ? true : false}
         />
-      </View>
-      <View className="my-10 flex-row justify-between">
+      </View> */}
+      {/* <View className="my-10 flex-row justify-between">
         <View>
           <Text
             className={`${
@@ -166,8 +183,37 @@ const TimerSettingsScreen: FC<Props> = ({ navigation }) => {
             slideOnTap
           />
         </View>
-      </View>
-      <Button label="Go Back" onPress={() => navigation.navigate("Timer")} />
+      </View> */}
+      <RoulettePicker
+        value={focusTime}
+        title="Focus"
+        isOpen={isActive == "Focus" ? true : false}
+        onPress={
+          isActive == "Focus"
+            ? handleCloseDropDown
+            : () => handleOpenDropDown("Focus")
+        }
+      />
+      <RoulettePicker
+        value={breakTime}
+        title="Break"
+        isOpen={isActive == "Break" ? true : false}
+        onPress={
+          isActive == "Break"
+            ? handleCloseDropDown
+            : () => handleOpenDropDown("Break")
+        }
+      />
+      <RoulettePicker
+        value={longBreak}
+        title="Long Break"
+        isOpen={isActive == "Long Break" ? true : false}
+        onPress={
+          isActive == "Long Break"
+            ? handleCloseDropDown
+            : () => handleOpenDropDown("Long Break")
+        }
+      />
     </View>
   );
 };

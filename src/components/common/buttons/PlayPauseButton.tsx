@@ -9,20 +9,14 @@ type Props = {
 
 const PlayPauseButton: FC<Props> = ({ onPress, isTimeRunning }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress}>
       <AntDesign
-        name={isTimeRunning ? "pausecircleo" : "playcircleo"}
-        size={120}
-        color="black"
+        name={isTimeRunning ? "pausecircle" : "play"}
+        size={80}
+        color="#00e0ff"
       />
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 30,
-  },
-});
 
 export default PlayPauseButton;

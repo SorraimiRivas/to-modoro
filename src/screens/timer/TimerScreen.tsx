@@ -6,7 +6,6 @@ import { RootStackParams } from "../../navigation/Stack";
 import { useGlobalContext } from "../../context/GlobalContext";
 import { StackNavigationProp } from "@react-navigation/stack";
 import ResetTimerButton from "../../components/common/buttons/ResetTimerButton";
-import TimerDisplay from "../../components/TimerDisplay";
 import AnimatedProgress from "../../components/AnimatedProgress";
 
 export type TimerMode = "Focus" | "Break";
@@ -60,16 +59,15 @@ const TimerScreen: FC = () => {
   }, [timer]);
 
   return (
-    <View className="flex-1 bg-white justify-center">
-      <View>
+    <View className="flex-1 flex-col bg-white justify-center items-center">
+      <View className="mb-20">
         <TimerModeText timerMode={timerMode} />
       </View>
-      <View>
+      <View className="mb-20">
         <AnimatedProgress
           timer={timer}
           value={timerMode == "Focus" ? focusTime * 60 : breakTime * 60}
         />
-        <TimerDisplay time={timer} />
       </View>
       <View>
         <PlayPauseButton
